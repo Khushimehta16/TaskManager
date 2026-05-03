@@ -1,0 +1,17 @@
+{
+  "name": "task-manager-monolith",
+  "version": "1.0.0",
+  "description": "Full stack task manager",
+  "main": "server/index.js",
+  "scripts": {
+    "install-client": "cd client && npm install",
+    "install-server": "cd server && npm install",
+    "install-all": "npm run install-server && npm run install-client",
+    "build-client": "cd client && npm run build",
+    "start": "node server/index.js",
+    "heroku-postbuild": "npm run install-client && npm run build-client"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

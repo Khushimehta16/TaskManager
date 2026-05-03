@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import API_URL from '../api';
 import { useParams, Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { Plus, ArrowLeft, Clock, MoreVertical, Users } from 'lucide-react';
@@ -23,9 +24,9 @@ const ProjectDetails = () => {
   const fetchData = async () => {
     try {
       const [projRes, tasksRes, usersRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/projects'),
-        axios.get(`http://localhost:5000/api/tasks/project/${id}`),
-        axios.get('http://localhost:5000/api/users')
+        axios.get(`${API_URL}/api/projects`),
+        axios.get(`${API_URL}/api/tasks/project/${id}`),
+        axios.get(`${API_URL}/api/users`)
       ]);
       const currentProject = projRes.data.find(p => p._id === id);
       setProject(currentProject);
@@ -48,7 +49,7 @@ const ProjectDetails = () => {
       const taskData = { ...newTask, project: id };
       if (!taskData.assignedTo) delete taskData.assignedTo;
       
-      await axios.post('http://localhost:5000/api/tasks', taskData);
+      await axios.post(`${API_URL}/api/tasks`, taskData);
       setIsTaskModalOpen(false);
       setNewTask({ title: '', description: '', assignedTo: '', dueDate: '' });
       fetchData();
@@ -61,7 +62,7 @@ const ProjectDetails = () => {
     e.preventDefault();
     if (!selectedMember) return;
     try {
-      await axios.put(`http://localhost:5000/api/projects/${id}/members`, { memberId: selectedMember });
+      await axios.put(`${API_URL}/api/projects/${id}/members`, { memberId: selectedMember });
       setIsTeamModalOpen(false);
       setSelectedMember('');
       fetchData();

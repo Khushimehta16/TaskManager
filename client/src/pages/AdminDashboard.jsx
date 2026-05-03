@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_URL from '../api';
 import Layout from '../components/Layout';
 import { Plus, MoreVertical, Calendar, LayoutDashboard, CheckSquare, Clock, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -14,8 +15,8 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       const [projRes, tasksRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/projects'),
-        axios.get('http://localhost:5000/api/tasks/all')
+        axios.get(`${API_URL}/api/projects`),
+        axios.get(`${API_URL}/api/tasks/all`)
       ]);
       setProjects(projRes.data);
       setAllTasks(tasksRes.data);
@@ -33,7 +34,7 @@ const AdminDashboard = () => {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/projects', newProject);
+      await axios.post(`${API_URL}/api/projects`, newProject);
       setIsModalOpen(false);
       setNewProject({ name: '', description: '' });
       fetchData();

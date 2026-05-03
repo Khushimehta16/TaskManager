@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import API_URL from '../api';
 import Layout from '../components/Layout';
 import { AuthContext } from '../context/AuthContext';
 import { Clock, CheckCircle2, Circle } from 'lucide-react';
@@ -11,7 +12,7 @@ const MemberDashboard = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/tasks/my-tasks');
+      const res = await axios.get(`${API_URL}/api/tasks/my-tasks`);
       setTasks(res.data);
     } catch (err) {
       console.error(err);
@@ -26,7 +27,7 @@ const MemberDashboard = () => {
 
   const updateTaskStatus = async (taskId, newStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/tasks/${taskId}/status`, { status: newStatus });
+      await axios.put(`${API_URL}/api/tasks/${taskId}/status`, { status: newStatus });
       fetchTasks();
     } catch (err) {
       console.error(err);
