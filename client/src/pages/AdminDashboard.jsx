@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import API_URL from '../api';
 import Layout from '../components/Layout';
-import { Plus, MoreVertical, Calendar, LayoutDashboard, CheckSquare, Clock, AlertCircle } from 'lucide-react';
+import { Plus, MoreVertical, Calendar, LayoutDashboard, CheckSquare, Clock, AlertCircle, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
@@ -37,6 +37,18 @@ const AdminDashboard = () => {
       await axios.post(`${API_URL}/api/projects`, newProject);
       setIsModalOpen(false);
       setNewProject({ name: '', description: '' });
+      fetchData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDeleteProject = async (e, id) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!window.confirm('Are you sure you want to delete this project?')) return;
+    try {
+      await axios.delete(`${API_URL}/api/projects/${id}`);
       fetchData();
     } catch (err) {
       console.error(err);
@@ -117,8 +129,12 @@ const AdminDashboard = () => {
                   }`}>
                     {project.status}
                   </div>
-                  <button className="text-slate-400 hover:text-slate-600">
-                    <MoreVertical size={20} />
+                  <button 
+                    onClick={(e) => handleDeleteProject(e, project._id)}
+                    className="text-slate-400 hover:text-red-500 transition-colors p-1"
+                    title="Delete Project"
+                  >
+                    <Trash2 size={18} />
                   </button>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-[#5b45ff] transition-colors">{project.name}</h3>

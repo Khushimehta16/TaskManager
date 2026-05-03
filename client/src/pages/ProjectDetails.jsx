@@ -3,7 +3,7 @@ import axios from 'axios';
 import API_URL from '../api';
 import { useParams, Link } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { Plus, ArrowLeft, Clock, MoreVertical, Users } from 'lucide-react';
+import { Plus, ArrowLeft, Clock, MoreVertical, Users, Trash2 } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 
 const ProjectDetails = () => {
@@ -65,6 +65,16 @@ const ProjectDetails = () => {
       await axios.put(`${API_URL}/api/projects/${id}/members`, { memberId: selectedMember });
       setIsTeamModalOpen(false);
       setSelectedMember('');
+      fetchData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDeleteTask = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this task?')) return;
+    try {
+      await axios.delete(`${API_URL}/api/tasks/${id}`);
       fetchData();
     } catch (err) {
       console.error(err);
@@ -136,8 +146,12 @@ const ProjectDetails = () => {
                   <div key={task._id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:border-[#5b45ff] transition-colors group">
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-slate-900">{task.title}</h4>
-                      <button className="text-slate-300 hover:text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <MoreVertical size={16} />
+                      <button 
+                        onClick={() => handleDeleteTask(task._id)}
+                        className="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all p-1"
+                        title="Delete Task"
+                      >
+                        <Trash2 size={16} />
                       </button>
                     </div>
                     {task.description && <p className="text-slate-500 text-sm mb-4 line-clamp-2">{task.description}</p>}

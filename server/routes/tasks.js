@@ -64,4 +64,15 @@ router.put('/:id/status', verifyToken, async (req, res) => {
   }
 });
 
+// Delete task (Admin only)
+router.delete('/:id', verifyToken, isAdmin, async (req, res) => {
+  try {
+    const task = await Task.findByIdAndDelete(req.params.id);
+    if (!task) return res.status(404).json({ message: 'Task not found' });
+    res.json({ message: 'Task deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
