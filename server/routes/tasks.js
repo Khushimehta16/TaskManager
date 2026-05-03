@@ -13,6 +13,16 @@ router.get('/project/:projectId', verifyToken, async (req, res) => {
   }
 });
 
+// Get all tasks (Admin only)
+router.get('/all', verifyToken, isAdmin, async (req, res) => {
+  try {
+    const tasks = await Task.find().populate('assignedTo', 'name email');
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Get tasks assigned to user
 router.get('/my-tasks', verifyToken, async (req, res) => {
   try {

@@ -22,32 +22,34 @@ const Login = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-row">
+    <div className="flex min-h-screen flex-row font-sans">
       <LoginLeftSide />
-      <main className="flex-1 bg-slate-50 flex items-center justify-center px-6 py-12 md:px-12">
-        <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-          <div className="w-full max-w-md animate-fade-in-relative z-10">
-            <h1 className="text-3xl font-semibold text-slate-900">Welcome Back</h1>
-            <p className="mt-3 text-slate-500">Sign in to your portal to continue.</p>
+      <main className="flex-1 bg-[#f8fafc] flex items-center justify-center px-6 py-12 md:px-12">
+        <div className="w-full max-w-md rounded-[32px] border border-gray-100 bg-white p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="w-full max-w-md z-10 mb-6">
+            <h1 className="text-[32px] font-bold text-slate-900 tracking-tight">Welcome Back</h1>
+            <p className="mt-2 text-[15px] text-slate-500 font-medium">Sign in to your portal to continue.</p>
           </div>
-          {error && <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">{error}</div>}
-          <form onSubmit={handleSubmit} className="space-y-4 mt-6">
+          
+          {error && <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-xl text-sm font-medium">{error}</div>}
+          
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700">Email</label>
               <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="you@company.com" />
+                className="block w-full rounded-[14px] border border-gray-200 px-5 py-3.5 text-slate-900 focus:border-[#5b45ff] focus:ring-1 focus:ring-[#5b45ff] outline-none transition-all sm:text-sm font-medium placeholder-slate-400" placeholder="Email Address" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700">Password</label>
               <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="••••••••" />
+                className="block w-full rounded-[14px] border border-gray-200 px-5 py-3.5 text-slate-900 focus:border-[#5b45ff] focus:ring-1 focus:ring-[#5b45ff] outline-none transition-all sm:text-sm font-medium placeholder-slate-400" placeholder="Password" />
             </div>
-            <button type="submit" className="w-full block rounded-2xl bg-indigo-600 px-6 py-4 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition-colors">
+            
+            <button type="submit" className="w-full mt-2 block rounded-[14px] bg-[#5b45ff] px-6 py-4 text-center text-[15px] font-semibold text-white shadow-sm hover:bg-[#4a35f0] transition-colors">
               Sign In
             </button>
           </form>
-          <div className="mt-8 text-sm text-slate-500 text-center">
-            Don't have an account? <Link to="/signup" className="text-indigo-600 font-semibold hover:underline">Sign up</Link>
+          
+          <div className="mt-8 text-[13px] text-slate-500 text-center font-medium">
+            If you don't have credentials, <Link to="/signup" className="text-[#5b45ff] font-semibold hover:underline">create an account</Link>.
           </div>
         </div>
       </main>

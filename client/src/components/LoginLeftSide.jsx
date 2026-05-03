@@ -1,10 +1,13 @@
 const LoginLeftSide = () => {
   return (
-    <div className="hidden lg:flex flex-1 items-center justify-center bg-indigo-600 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-700 opacity-90"></div>
-      <div className="z-10 text-center px-10 text-white">
-        <h2 className="text-4xl font-bold mb-4">Project Management App</h2>
-        <p className="text-indigo-100 text-lg">Streamline your workflow and boost productivity.</p>
+    <div className="hidden lg:flex flex-col flex-1 justify-center bg-[#1e1b4b] relative overflow-hidden px-20">
+      <div className="z-10 text-left max-w-lg">
+        <h2 className="text-5xl font-bold mb-6 text-white leading-tight">
+          Team<br />Task Manager
+        </h2>
+        <p className="text-[#a5a5c5] text-lg leading-relaxed">
+          Create projects, assign tasks, track progress, and empower your team securely in one unified workspace.
+        </p>
       </div>
     </div>
   );
